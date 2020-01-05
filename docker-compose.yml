@@ -1,14 +1,14 @@
 version: '3'
 services:
   webhook:
-    image: "fredsted/webhook.site"
+    #image: "fredsted/webhook.site"
     # Enable build for development:
-    # build:
-    #   dockerfile: Dockerfile
-    #   context: ./
+    build:
+      dockerfile: Dockerfile
+      context: ./
     command: php artisan queue:work --daemon --tries=3 --timeout=10
     volumes:
-      - webhook_db:/www/html/database/
+      - webhook_db:/var/www/html/database/
     ports:
       - "8084:80"
     environment:
