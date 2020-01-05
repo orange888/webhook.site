@@ -35,11 +35,12 @@ class Kernel extends HttpKernel
             StartSession::class,
             ShareErrorsFromSession::class,
             Middleware\VerifyCsrfToken::class,
-            'throttle:30,1',
+            'throttle:'.env('THROTTLE_MAX_REQUESTS', 1).env('THROTTLE_MAX_REQUESTS_PERIOD_IN_MIN', 1),
         ],
 
         'api' => [
-            'throttle:30,1',
+            //'throttle:30,1',
+            'throttle:'.env('THROTTLE_MAX_REQUESTS', 1).env('THROTTLE_MAX_REQUESTS_PERIOD_IN_MIN', 1),
         ],
     ];
 
