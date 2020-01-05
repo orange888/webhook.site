@@ -7,6 +7,8 @@ services:
     #   dockerfile: Dockerfile
     #   context: ./
     command: php artisan queue:work --daemon --tries=3 --timeout=10
+    volumes:
+      - webhook_db:/www/html/database/
     ports:
       - "8084:80"
     environment:
@@ -20,6 +22,7 @@ services:
       - CACHE_DRIVER=redis
       - QUEUE_DRIVER=redis
       - ECHO_HOST_MODE=path
+      - WEBHOOK_MAX_REQUESTS=500000
 
   redis:
     image: "redis:alpine"
@@ -37,3 +40,6 @@ services:
       - ECHO_ALLOW_ORIGIN=*
       - ECHO_ALLOW_METHODS=*
       - ECHO_ALLOW_HEADERS=*
+
+volumes:
+  webhook_db:
